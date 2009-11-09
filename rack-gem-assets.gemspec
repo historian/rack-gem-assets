@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-gem-assets}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Simon Menke"]
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "dist/apache/mod_xsendfile.c",
      "lib/rack-gem-assets.rb",
      "lib/rack/gem_assets.rb",
+     "rack-gem-assets.gemspec",
      "test/helper.rb",
      "test/test_rack-gem-assets.rb"
   ]
