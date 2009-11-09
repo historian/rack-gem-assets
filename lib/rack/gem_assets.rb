@@ -18,7 +18,7 @@ module Rack #:nodoc:
     end
     
     def call(env)
-      unless env["REQUEST_METHOD"].to_s
+      unless env["REQUEST_METHOD"].to_s == 'GET'
         return pass env
       end
       
