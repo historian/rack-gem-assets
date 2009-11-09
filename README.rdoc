@@ -18,7 +18,19 @@ This is a Rack Middleware which will find and send static files provided by load
 === Configuration
 
 * <tt>:assets_dir</tt>: the sub directory where we will look for assets. (default: <tt>public</tt>)
-* <tt>:xsendfile</tt>: use XSendfile to send files.(default: <tt>true</tt>)
+* <tt>:xsendfile</tt>: use X-Sendfile to send files.(default: <tt>true</tt>)
+
+=== Rails Configuration
+
+  config.gem "rack-gem-assets", :lib => "rack/gem_assets", :source => "http://gemcutter.org"
+  config.middleware.use "Rack::GemAssets", :assets_dir => 'assets', :xsendfile => false
+
+=== X-Sendfile Configuration
+
+Your apache config needs to include these configuration directives:
+
+  XSendFile           On # enable X-Sendfile
+  XSendFileAllowAbove On # allow X-Sendfile to access files outside of the Directory
 
 == Note on Patches/Pull Requests
  
