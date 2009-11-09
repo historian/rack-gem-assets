@@ -10,6 +10,7 @@ begin
     gem.email = "simon@mrhenry.be"
     gem.homepage = "http://github.com/simonmenke/rack-gem-assets"
     gem.authors = ["Simon Menke"]
+    gem.files += ['rails/init.rb']
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
