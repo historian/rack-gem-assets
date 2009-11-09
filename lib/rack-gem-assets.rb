@@ -1,0 +1,1 @@
+require 'rack/gem_assets'

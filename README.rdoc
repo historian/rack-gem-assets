@@ -1,6 +1,24 @@
-= rack-gem-assets
+= Rack GemAssets
 
-Description goes here.
+This is a Rack Middleware which will find and send static files provided by loaded gems.
+
+=== Asset search rules
+
+1. if the path starts with <tt>/vendor/:name</tt> (eg: <tt>/vendor/my-assets-gem/image.jpg</tt>)
+   we will look for a loaded gem called <tt>:name</tt> and find a file in there first.
+   Otherwise we search each loaded gems.
+2. For each gem in our search list we will look in the <tt>:assets_dir</tt> directory under the <tt>full_gem_path</tt> (next to the lib dir).
+   if this directory contains a file with the specified path we send it.
+3. if the path ends with a slash we remove it. then we append <tt>.html</tt>
+   (eg: <tt>/pages/about/ => /pages/about.html</tt>, <tt>/pages/about => /pages/about.html</tt>)
+4. If we still dont have a match we append <tt>/index.html</tt>
+   (eg: <tt>/pages/about/ => /pages/about/index.html</tt>, <tt>/pages/about => /pages/about/index.html</tt>)
+5. If we still don't have a match we pass the request to the sub app.
+
+=== Configuration
+
+* <tt>:assets_dir</tt>: the sub directory where we will look for assets. (default: <tt>public</tt>)
+* <tt>:xsendfile</tt>: use XSendfile to send files.(default: <tt>true</tt>)
 
 == Note on Patches/Pull Requests
  
@@ -10,7 +28,7 @@ Description goes here.
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
+  bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright
