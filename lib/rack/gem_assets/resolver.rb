@@ -8,16 +8,32 @@ class Rack::GemAssets::Resolver
   end
   
   def resolve(path)
+    resolve_all_paths unless @assets
+    
     if path[-1,1] == '/'
       path = path[0..-2]
     end
     
-    resolve_all_paths unless @assets
+    full_path = path
+    if @assets[full_path]
+      return @assets[full_path]
+    end
     
-    @assets[path]
+    full_path = path + '/index.html'
+    if @assets[full_path]
+      return @assets[full_path]
+    end
+    
+    full_path = path + '.html'
+    if @assets[full_path]
+      return @assets[full_path]
+    end
+    
+    return nil
   end
   
   def assets
+    resolve_all_paths unless @assets
     @assets.dup
   end
   
@@ -53,19 +69,6 @@ private
       
       @assets[rel_path] = path
       @assets["/vendor/#{spec.name}#{rel_path}"] = path
-      
-      if File.basename(path) == 'index.html'
-        rel_path = rel_path.sub(/\/index\.html$/, '')
-        @assets[rel_path] = path
-        @assets["/vendor/#{spec.name}#{rel_path}"] = path
-      end
-      
-      if File.extname(path) == '.html'
-        rel_path = rel_path.sub(/\.html$/, '')
-        @assets[rel_path] = path
-        @assets["/vendor/#{spec.name}#{rel_path}"] = path
-      end
-      
     end
   end
   
